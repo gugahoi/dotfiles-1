@@ -11,15 +11,21 @@ base() {
 		cmatrix \
 		compton \
 		curl \
+		feh \
 		git \
+		help2man \
 		i3 \
+		icdiff \
 		jq \
+		neofetch \
 		neovim \
 		network-manager \
 		openvpn \
 		rofi \
 		s3cmd \
+		scrot \
 		terminator \
+		tig \
 		tlp \
 		tlp-rdw \
 		wicd \
@@ -28,8 +34,6 @@ base() {
 	apt autoremove
 	apt autoclean
 	apt clean
-
-	install_docker
 }
 
 # installs docker master
@@ -96,6 +100,22 @@ install_spotify() {
 	apt install spotify-client
 }
 
+# install custom scripts/binaries
+install_scripts() {
+	# install speedtest
+	curl -sSL https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py  > /usr/local/bin/speedtest
+	chmod +x /usr/local/bin/speedtest
+
+	# install lolcat
+	curl -sSL https://raw.githubusercontent.com/tehmaze/lolcat/master/lolcat > /usr/local/bin/lolcat
+	chmod +x /usr/local/bin/lolcat
+
+	# install light (need help2man which is installed in base)
+	#git clone https://github.com/haikarainen/light.git /opt/light/
+	#pushd /opt/light
+	#mkdir build/ && cd build/
+	#make .. && make install
+}
 
 # symlink all the things
 symlinks() {
@@ -117,8 +137,6 @@ usage() {
 
 
 main() {
-	# must run this with sudo to do the thing with the thing
-	check_is_sudo
 	local cmd=$1
 
 	if [[ -z "$cmd" ]]; then
@@ -126,11 +144,41 @@ main() {
 		exit 1
 	fi
 
-	#base
-	#install_docker
-	install_golang
-	#install_spotify
-	#symlinks
+	case $cmd in
+		all)
+			base
+			install_docker
+			install_golang
+			install_scripts
+			install_spotify
+			symlinks
+			echo "Reboot and yipee kay yay!"
+			;;
+		base)
+			base
+			;;
+		docker)
+			install_docker
+			;;
+		go)
+			install_golang
+			;;
+		scripts)
+			install_scripts
+			;;
+		spotify)
+			install_spotify
+			;;
+		symlinks)
+			symlinks
+			;;
+		*)
+			usage
+			;;
+	esac
+
 }
 
+# must run this with sudo to do the thing with the thing
+check_is_sudo
 main "$@"
