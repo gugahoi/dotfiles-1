@@ -8,6 +8,7 @@ base() {
 	apt -y upgrade
 	apt install \
 		alsa-utils \
+		arandr \
 		cmatrix \
 		compton \
 		curl \
