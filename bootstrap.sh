@@ -3,6 +3,8 @@
 set -e
 set -o pipefail
 
+# TODO: need to create a rule with powertop --auto-tune
+
 base() {
 	apt update
 	apt -y upgrade
@@ -22,7 +24,7 @@ base() {
 		neovim \
 		network-manager \
 		openvpn \
-		powertop \ # need to create a rule with powertop --auto-tune
+		powertop \
 		rofi \
 		s3cmd \
 		scrot \
