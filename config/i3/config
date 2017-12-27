@@ -171,7 +171,7 @@ smart_borders on
 # polybar
 exec --no-startup-id polybar -r main &
 # compton
-exec --no-startup-id compton
+exec --no-startup-id compton -b --config ~/.config/compton.conf
 exec --no-startup-id nitrogen --restore
 
 # brightness controls
