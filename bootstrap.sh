@@ -22,6 +22,7 @@ base() {
 		neovim \
 		network-manager \
 		openvpn \
+		powertop \ # need to create a rule with powertop --auto-tune
 		rofi \
 		s3cmd \
 		scrot \
