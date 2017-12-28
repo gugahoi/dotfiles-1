@@ -200,6 +200,8 @@ for_window [class="Spotify"] move to workspace $workspace10
 exec spotify
 exec franz
 
+# do not auto focus on mouse window
+focus_follows_mouse no
 
 # window colors
 set $bg-color 	         #000000
