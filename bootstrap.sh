@@ -28,6 +28,7 @@ base() {
 		rofi \
 		s3cmd \
 		scrot \
+		shellcheck \
 		terminator \
 		tig \
 		tlp \
@@ -107,18 +108,37 @@ install_spotify() {
 # install custom scripts/binaries
 install_scripts() {
 	# install speedtest
-	curl -sSL https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py  > /usr/local/bin/speedtest
-	chmod +x /usr/local/bin/speedtest
+	(
+		curl -sSL https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py  > /usr/local/bin/speedtest
+		chmod +x /usr/local/bin/speedtest
+	)
 
 	# install lolcat
-	curl -sSL https://raw.githubusercontent.com/tehmaze/lolcat/master/lolcat > /usr/local/bin/lolcat
-	chmod +x /usr/local/bin/lolcat
+	(
+		curl -sSL https://raw.githubusercontent.com/tehmaze/lolcat/master/lolcat > /usr/local/bin/lolcat
+		chmod +x /usr/local/bin/lolcat
+	)
 
 	# install light (need help2man which is installed in base)
-	#git clone https://github.com/haikarainen/light.git /opt/light/
-	#pushd /opt/light
-	#mkdir build/ && cd build/
-	#make .. && make install
+	( 
+		git clone https://github.com/haikarainen/light.git /opt/light/
+		cd /opt/light
+		mkdir build/ && cd build/
+		make .. && make install
+	)
+}
+
+install_kubectl() {
+	KUBERNETES_VERSION=$(curl -sSL https://storage.googleapis.com/kubernetes-release/release/stable.txt)
+	curl -sSL "https://storage.googleapis.com/kubernetes-release/release/${KUBERNETES_VERSION}/bin/linux/amd64/kubectl" > /usr/local/bin/kubectl
+	chmod +x /usr/local/bin/kubectl
+}
+
+install_vscode() { 
+	local tmp_file=$(mktemp)
+	curl https://go.microsoft.com/fwlink/?LinkID=760868 -L --output $tmp_file
+ 	dpkg -i $tmp_file
+	rm $tmp_file
 }
 
 # symlink all the things
@@ -136,7 +156,15 @@ check_is_sudo() {
 usage() {
 	echo -e "install.sh\\n\\tThis script installs my basic setup for a Ubuntu Minimal 17.10 laptop\\n"
 	echo "Usage:"
-	echo "  golang                              - install golang and packages"
+	echo "  all 			- do all of the things"
+	echo "  base 			- install all the pkgs from apt"
+	echo "  code 			- install vs code"
+	echo "  docker 			- install docker"
+	echo "  go              - install golang"
+	echo "  kube 			- install kubernetes things"
+	echo "  scripts			- install some cool scripts"
+	echo "  spotify			- install spotify"
+	echo "  symlinks		- link the config files"
 }
 
 
@@ -153,6 +181,7 @@ main() {
 			base
 			install_docker
 			install_golang
+			install_kubectl
 			install_scripts
 			install_spotify
 			symlinks
@@ -161,11 +190,17 @@ main() {
 		base)
 			base
 			;;
+		code)
+			install_vscode
+			;;
 		docker)
 			install_docker
 			;;
 		go)
 			install_golang
+			;;
+		kube)
+			install_kubectl
 			;;
 		scripts)
 			install_scripts
