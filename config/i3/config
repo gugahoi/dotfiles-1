@@ -216,8 +216,9 @@ exec xautolock -time 2 -locker 'i3lock -c 000000'
 
 # assign apps to workspaces
 assign [class="Firefox"] $workspace1
-assign [class="Code"] $workspace3
+assign [class="Code"] $workspace2
 assign [class="Franz"] $workspace4
+assign [class="Google-chrome"] $workspace1
 # spotify is a silly unicorn, cant assign it
 for_window [class="Spotify"] move to workspace $workspace10
 
