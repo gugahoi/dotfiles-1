@@ -209,7 +209,10 @@ bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 
 # lockscreen
-bindsym $mod+Escape exec i3lock -B=sigma -k
+bindsym $mod+Escape exec i3lock -c 000000
+
+# lock after timeout
+exec xautolock -time 2 -locker 'i3lock -c 000000'
 
 # assign apps to workspaces
 assign [class="Firefox"] $workspace1
