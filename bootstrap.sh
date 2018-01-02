@@ -33,6 +33,7 @@ base() {
 		tig \
 		tlp \
 		tlp-rdw \
+		ttf-ancient-fonts \
 		wicd \
 		wicd-curses
 
