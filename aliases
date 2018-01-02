@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# Shortcuts
+alias dl="cd ~/Downloads"
+alias g="git"
+alias h="history"
+alias gst="git status"
+
+# Easier navigation: .., ..., ...., ....., ~ and -
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ~="cd ~" # `cd` is probably faster to type though
+alias -- -="cd -"
+
+# Always enable colored `grep` output
+alias grep='grep --color=auto -i '
+
+# copy file interactive
+alias cp='cp -i'
+
+# move file interactive
+alias mv='mv -i'
+
+# untar
+alias untar='tar xvf'
