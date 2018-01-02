@@ -203,6 +203,11 @@ bindsym XF86AudioLowerVolume exec amixer -D pulse sset Master 5%- # decrease vol
 bindsym XF86AudioMute exec amixer -D pulse set Master toggle # mute sound 
 bindsym XF86AudioMicMute exec amixer set Capture toggle # mute mic
 
+# media controls
+bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+
 # lockscreen
 bindsym $mod+Escape exec i3lock -B=sigma -k
 

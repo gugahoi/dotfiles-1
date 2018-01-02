@@ -167,7 +167,6 @@ usage() {
 	echo "  symlinks		- link the config files"
 }
 
-
 main() {
 	local cmd=$1
 
