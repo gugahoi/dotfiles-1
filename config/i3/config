@@ -182,9 +182,13 @@ bindsym $mod+Shift+n exec xrandr --output eDP-1 --off
 bindsym $mod+Shift+b exec ~/.config/i3/scripts/toggle_screen.sh
 
 # polybar
-exec --no-startup-id polybar -r main &
+# exec --no-startup-id polybar -r main &
+exec --no-startup-id ~/.config/polybar/scripts/launch.sh
+
 # compton
 exec --no-startup-id compton -b --config ~/.config/compton.conf
+
+# nitrogen backgrounds
 exec --no-startup-id nitrogen --restore
 
 # brightness controls
