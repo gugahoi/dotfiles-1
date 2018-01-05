@@ -8,7 +8,7 @@ set -o pipefail
 base() {
 	apt update
 	apt -y upgrade
-	apt install \
+	apt install -y --no-install-recommends \
 		alsa-utils \
 		arandr \
 		cmatrix \
@@ -20,6 +20,7 @@ base() {
 		i3 \
 		icdiff \
 		jq \
+		make \
 		neofetch \
 		neovim \
 		network-manager \
@@ -47,7 +48,7 @@ install_docker() {
 	groupadd docker
 	gpasswd -a $USER docker
 
-	apt-get install \
+	apt-get install -y \
 	    apt-transport-https \
 	    ca-certificates \
 	    curl \
@@ -103,7 +104,7 @@ install_spotify() {
 	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0DF731E45CE24F27EEEB1450EFDC8610341D9410
 	echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
 	apt update
-	apt install spotify-client
+	apt install -y spotify-client
 }
 
 # install custom scripts/binaries
@@ -124,8 +125,7 @@ install_scripts() {
 	( 
 		git clone https://github.com/haikarainen/light.git /opt/light/
 		cd /opt/light
-		mkdir build/ && cd build/
-		make .. && make install
+		make && make install
 	)
 }
 
@@ -147,12 +147,8 @@ symlinks() {
 	ln -s ~/.dotfiles/.wallpaper ~/.wallpaper
 }
 
-check_is_sudo() {
-	if [ "$EUID" -ne 0 ]; then
-		echo "Please run as root."
-		exit
-	fi
-}
+die() { echo "$@" && exit 1}
+check_is_sudo() { [ "$EUID" -ne 0 ] && die "please run as root"}
 
 usage() {
 	echo -e "install.sh\\n\\tThis script installs my basic setup for a Ubuntu Minimal 17.10 laptop\\n"
