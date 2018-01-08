@@ -70,6 +70,14 @@ install_docker() {
 	apt clean
 }
 
+install_docker_compose() {
+	local binary=/usr/local/bin/docker-compose
+	local version=1.18.0
+
+	curl -L https://github.com/docker/compose/releases/download/${version}/docker-compose-`uname -s`-`uname -m` -o ${binary}
+	chmod +x ${binary}
+}
+
 # install go from gophers repo
 install_golang() {
 	export GO_VERSION
@@ -191,6 +199,9 @@ main() {
 			;;
 		docker)
 			install_docker
+			;;
+		docker-compose)
+			install_docker_compose
 			;;
 		go)
 			install_golang
