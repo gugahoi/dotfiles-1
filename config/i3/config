@@ -108,8 +108,8 @@ set $workspace10 "10:  "
 # assign workspace to monitors
 workspace $workspace1 output DP-1-1
 workspace $workspace2 output DP-1-1
+workspace $workspace3 output DP-1-2
 workspace $workspace4 output DP-1-2
-
 
 # switch to workspace
 bindsym $mod+1 workspace $workspace1
