@@ -5,6 +5,7 @@ alias dl="cd ~/Downloads"
 alias g="git"
 alias h="history"
 alias gst="git status"
+alias dcr="docker-compose run --rm"
 
 # Easier navigation: .., ..., ...., ....., ~ and -
 alias ..="cd .."
@@ -25,3 +26,47 @@ alias mv='mv -i'
 
 # untar
 alias untar='tar xvf'
+
+# kubernetes
+alias k='kubectl'
+
+# container aliases
+aws(){
+	docker run -it --rm \
+		-v "${HOME}/.aws:/root/.aws" \
+		--log-driver none \
+		--name aws \
+		jess/awscli "$@"
+}
+
+awsenv() {
+	docker run -it --rm \
+		-e AWS_ACCESS_KEY_ID \
+		-e AWS_SECRET_ACCESS_KEY \
+		-e AWS_SESSION_TOKEN \
+		-e AWS_DEFAULT_REGION=ap-southeast-2 \
+		-v "$(pwd):/root/src" \
+		-w /root/src \
+		--log-driver none \
+		--name awsenv \
+		jess/awscli "$@"
+}
+
+s3cmdocker(){
+	docker run --rm -it \
+		-e AWS_ACCESS_KEY_ID \
+		-e AWS_SECRET_ACCESS_KEY \
+		-e AWS_SESSION_TOKEN \
+		-v "$(pwd):/root/s3cmd-workspace" \
+		--name s3cmd \
+		jess/s3cmd "$@"
+}
+
+shellcheck(){
+	docker run --rm -it \
+		-v $(pwd):/root/src \
+		-w /root/src \
+		--entrypoint shellcheck \
+		--name shellcheck \
+		koalaman/shellcheck "$@"
+}
