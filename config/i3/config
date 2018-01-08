@@ -192,6 +192,9 @@ exec --no-startup-id compton -b --config ~/.config/compton.conf
 # nitrogen backgrounds
 exec --no-startup-id nitrogen --restore
 
+# notification system
+exec --no-startup-id dunst
+
 # brightness controls
 bindsym XF86MonBrightnessUp exec light -A 10 # increase brightness
 bindsym XF86MonBrightnessDown exec light -U 10 # decrease brightness
