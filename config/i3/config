@@ -234,6 +234,9 @@ exec franz
 # do not auto focus on mouse window
 focus_follows_mouse no
 
+# disable capslock (maybe map it to something else)
+exec_always setxkbmap -option caps:none
+
 # window colors
 set $bg-color 	         #000000
 set $inactive-bg-color   #333333
