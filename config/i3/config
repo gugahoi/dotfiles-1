@@ -223,6 +223,7 @@ assign [class="Firefox"] $workspace1
 assign [class="Code"] $workspace2
 assign [class="Franz"] $workspace4
 assign [class="Google-chrome"] $workspace1
+assign [class="X-terminal-emulator"] $workspace3
 # spotify is a silly unicorn, cant assign it
 for_window [class="Spotify"] move to workspace $workspace10
 
