@@ -3,6 +3,8 @@
 player_status=$(playerctl status 2> /dev/null)
 if [[ $? -eq 0 ]]; then
     metadata="$(playerctl metadata artist) - $(playerctl metadata title)"
+else
+    echo ""; exit 0;
 fi
 
 # Foreground color formatting tags are optional
