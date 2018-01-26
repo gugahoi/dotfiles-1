@@ -183,7 +183,7 @@ bindsym $mod+Shift+b exec ~/.config/i3/scripts/toggle_screen.sh
 
 # polybar
 # exec --no-startup-id polybar -r main &
-exec --no-startup-id ~/.config/polybar/scripts/launch.sh
+exec_always --no-startup-id ~/.config/polybar/scripts/launch.sh
 exec_always pkill -USR1 polybar
 
 # compton
@@ -228,7 +228,6 @@ assign [class="X-terminal-emulator"] $workspace3
 for_window [class="Spotify"] move to workspace $workspace10
 
 # start some applications
-exec spotify
 exec franz
 
 # do not auto focus on mouse window
