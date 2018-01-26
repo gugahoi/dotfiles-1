@@ -15,6 +15,8 @@ alias .....="cd ../../../.."
 alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
 
+alias chownme="sudo chown gus:gus -R "
+
 # Always enable colored `grep` output
 alias grep='grep --color=auto -i '
 
@@ -34,6 +36,8 @@ alias k='kubectl'
 aws(){
 	docker run -it --rm \
 		-v "${HOME}/.aws:/root/.aws" \
+		-v "$(pwd):/root/src" \
+		-w "/root/src" \
 		--log-driver none \
 		--name aws \
 		jess/awscli "$@"
@@ -69,4 +73,31 @@ shellcheck(){
 		--entrypoint shellcheck \
 		--name shellcheck \
 		koalaman/shellcheck "$@"
+}
+
+helm(){
+	docker run --rm -it \
+		-v $(pwd):/root/src \
+		-v ~/.kube:/root/.kube \
+		-v ~/.helm:/root/.helm \
+		-w /root/src \
+		--entrypoint helm \
+		--name helm \
+		lachlanevenson/k8s-helm:v2.7.2 "$@"
+}
+
+wrk2(){
+	docker run -it --rm \
+		1vlad/wrk2-docker "$@"
+}
+
+cfn-make(){
+	docker run -it --rm \
+		-v $(pwd):/cfn \
+		-v ~/.aws:/.aws \
+		-v /tmp:/tmp \
+		-e USER \
+		-w /cfn \
+		--name cfnmake \
+		183839469016.dkr.ecr.ap-southeast-2.amazonaws.com/mm-cfn-make "$@"
 }
